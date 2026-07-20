@@ -5,7 +5,7 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
 <section class="hero" id="top">
   <div class="container">
     <div class="hero-inner">
-      <p class="eyebrow">whoami</p>
+      <p class="eyebrow">who am i</p>
 
       <h1 class="hero-title">
         <span class="prompt">~$</span>
@@ -13,7 +13,7 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
       </h1>
 
       <p class="hero-sub">
-        Fullstack developer, 16, Ukraine 🇺🇦 — building things across way too
+        Dmitriy, 16 y.o, Ukraine — building programs across way
         many languages, on purpose.
       </p>
 
@@ -179,9 +179,8 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
 </style>
 
 <script>
-  // Typewriter effect for the hero title — runs once on load.
   const el = document.getElementById('typed');
-  const word = 'xeraze_';
+  const word = 'xeraze';
   let i = 0;
 
   function type() {
@@ -244,7 +243,7 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
       if (listening_to_spotify && spotify) {
         html += `<p class="status-detail">🎧 ${spotify.song} — ${spotify.artist}</p>`;
       } else if (gameActivity) {
-        html += `<p class="status-detail">🎮 ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail">👾 ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
         if (gameActivity.timestamps?.start) {
           html += `<p class="status-detail">${formatElapsed(gameActivity.timestamps.start)}</p>`;
         }
