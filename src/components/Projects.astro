@@ -1,0 +1,171 @@
+---
+import { fetchAllRepos, timeAgo } from '../lib/github';
+import { projects } from '../lib/projects.config';
+
+const repos = await fetchAllRepos(projects);
+
+const LANG_COLOR: Record<string, string> = {
+  TypeScript: '#3178c6',
+  JavaScript: '#eab308',
+  HTML: '#e34c26',
+  CSS: '#264de4',
+  Python: '#3572A5',
+  'C#': '#68217a',
+  C: '#555555',
+  'C++': '#f34b7d',
+  Lua: '#000080',
+};
+---
+
+<section id="projects">
+  <div class="container">
+    <p class="eyebrow">projects</p>
+    <h2 class="section-title">git log --pinned</h2>
+    <p class="section-sub">
+      Live from GitHub — stars, language, and last-updated pull straight
+      from the repos, so this list never goes stale.
+    </p>
+
+    <div class="repo-list">
+      {repos.map((repo, idx) => (
+        <a class="repo-card" href={repo.url} target="_blank" rel="noopener" style={`--delay: ${idx * 60}ms`}>
+          <div class="repo-head">
+            <span class="repo-name">{repo.displayName}</span>
+            <span class="repo-arrow">↗</span>
+          </div>
+          <p class="repo-desc">{repo.description}</p>
+          <div class="repo-meta">
+            {repo.language && (
+              <span class="repo-lang">
+                <span class="lang-dot" style={`background: ${LANG_COLOR[repo.language] ?? 'var(--ink-2)'}`}></span>
+                {repo.language}
+              </span>
+            )}
+            <span class="repo-stat">★ {repo.stars}</span>
+            <span class="repo-stat">⑂ {repo.forks}</span>
+            <span class="repo-updated">updated {timeAgo(repo.updatedAt)}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {repos.length === 0 && (
+      <p class="repo-empty">Couldn't load projects right now — check back in a bit.</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 600;
+    margin: 10px 0 12px;
+  }
+
+  .section-sub {
+    color: var(--ink-2);
+    font-size: 0.88rem;
+    max-width: 52ch;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .repo-card {
+    display: block;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), background 0.25s var(--ease);
+    animation: card-in 0.5s var(--ease) both;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .repo-card:hover {
+    border-color: var(--amber-dim);
+    background: var(--bg-2);
+    transform: translateY(-3px);
+  }
+
+  .repo-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .repo-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink-0);
+  }
+
+  .repo-arrow {
+    color: var(--ink-2);
+    transition: transform 0.25s var(--ease), color 0.25s var(--ease);
+  }
+
+  .repo-card:hover .repo-arrow {
+    color: var(--amber);
+    transform: translate(2px, -2px);
+  }
+
+  .repo-desc {
+    color: var(--ink-1);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .repo-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 0.78rem;
+    color: var(--ink-2);
+  }
+
+  .repo-lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .repo-updated {
+    margin-left: auto;
+  }
+
+  .repo-empty {
+    color: var(--ink-2);
+    font-size: 0.9rem;
+  }
+</style>

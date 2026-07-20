@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* -- color: graphite base to white, monochrome accent -- */
+  --bg-0: #0e0e11;
+  --bg-1: #131318;
+  --bg-2: #1a1a21;
+  --line: rgba(245, 245, 240, 0.08);
+  --line-strong: rgba(245, 245, 240, 0.16);
+
+  --ink-0: #f5f5f0;
+  --ink-1: #b8bac4;
+  --ink-2: #7d7f8c;
+
+  --amber: #f5f5f0;
+  --amber-dim: #9a9ba3;
+  --amber-glow: rgba(245, 245, 240, 0.18);
+
+  --status-online: #3ba55d;
+  --status-idle: #e8a33d;
+  --status-dnd: #ed4245;
+  --status-offline: #5c5e66;
+
+  --font-mono: 'Source Code Pro', ui-monospace, monospace;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg-0);
+  color: var(--ink-0);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--bg-0);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 8px var(--amber-glow);
+}
+
+section {
+  padding-block: 88px;
+}
+
+@media (max-width: 640px) {
+  section {
+    padding-block: 56px;
+  }
+}

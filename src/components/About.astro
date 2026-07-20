@@ -1,0 +1,232 @@
+---
+const backend = [
+  { name: 'C', icon: 'https://skillicons.dev/icons?i=c' },
+  { name: 'C#', icon: 'https://skillicons.dev/icons?i=cs' },
+  { name: 'C++', icon: 'https://skillicons.dev/icons?i=cpp' },
+  { name: 'Java', icon: 'https://skillicons.dev/icons?i=java' },
+  { name: 'Node.js', icon: 'https://skillicons.dev/icons?i=nodejs' },
+  { name: 'Rust', icon: 'https://skillicons.dev/icons?i=rust' },
+  { name: 'Python', icon: 'https://skillicons.dev/icons?i=py' },
+  { name: 'Lua', icon: 'https://skillicons.dev/icons?i=lua' },
+];
+
+const frontend = [
+  { name: 'HTML', icon: 'https://skillicons.dev/icons?i=html' },
+  { name: 'CSS', icon: 'https://skillicons.dev/icons?i=css' },
+  { name: 'JavaScript', icon: 'https://skillicons.dev/icons?i=js' },
+  { name: 'TypeScript', icon: 'https://skillicons.dev/icons?i=ts' },
+  { name: 'React', icon: 'https://skillicons.dev/icons?i=react' },
+];
+---
+
+<section id="about">
+  <div class="container">
+    <p class="eyebrow">about</p>
+    <h2 class="section-title">A bit about me</h2>
+
+    <p class="about-text">
+      I'm xeraze — a fullstack developer from Ukraine, focused on writing
+      clean, maintainable code and shipping things that actually work.
+      I like spreading myself across languages instead of settling into one
+      comfortable stack, and this summer I'm trying to push that further:
+      more languages, more finished projects, more things in production.
+    </p>
+
+    <button class="about-more" id="about-more-btn">read more →</button>
+
+    <div class="stack">
+      <div class="stack-group">
+        <p class="stack-label">
+          <span class="stack-prompt">$</span> ls ./backend
+        </p>
+        <div class="stack-icons">
+          {backend.map((t) => <img src={t.icon} alt={t.name} title={t.name} width="40" height="40" loading="lazy" />)}
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <p class="stack-label">
+          <span class="stack-prompt">$</span> ls ./frontend
+        </p>
+        <div class="stack-icons">
+          {frontend.map((t) => <img src={t.icon} alt={t.name} title={t.name} width="40" height="40" loading="lazy" />)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+  <div class="modal-card">
+    <button class="modal-close" id="about-modal-close" aria-label="Close">&times;</button>
+    <p class="eyebrow" id="about-modal-title">about.md</p>
+    <p class="modal-text">
+      xeraze, 16 years old, a fullstack developer and web designer from
+      Ukraine. My main interests are coding and gaming. I provide
+      high-quality work and stick to deadlines when they're specified.
+      Pricelist:
+      <a href="https://xeraze.github.io/Pricelist/" target="_blank" rel="noopener" class="modal-link">
+        xeraze.github.io/Pricelist
+      </a>
+      — I usually respond fastest on Discord. If you're sending a work
+      order, please make it well-structured and detailed; without that I
+      can't guarantee the result matches what you had in mind. In most
+      cases I'll start on your project right away.
+    </p>
+    <p class="modal-footnote">(If an employer is reading this — I'd love to work with you.)</p>
+  </div>
+</div>
+
+<style>
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 600;
+    margin: 10px 0 24px;
+  }
+
+  .about-text {
+    color: var(--ink-1);
+    line-height: 1.7;
+    font-size: 0.98rem;
+    max-width: 62ch;
+    margin-bottom: 10px;
+  }
+
+  .about-more {
+    background: none;
+    border: none;
+    color: var(--amber);
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 44px;
+  }
+
+  .about-more:hover {
+    text-decoration: underline;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .stack-label {
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .stack-prompt {
+    color: var(--amber);
+  }
+
+  .stack-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stack-icons img {
+    border-radius: var(--radius-sm);
+    transition: transform 0.2s var(--ease);
+  }
+
+  .stack-icons img:hover {
+    transform: translateY(-3px);
+  }
+
+  /* modal */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 8, 10, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal.open {
+    display: flex;
+  }
+
+  .modal-card {
+    background: var(--bg-1);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    animation: modal-in 0.25s var(--ease);
+  }
+
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--ink-2);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    color: var(--ink-0);
+  }
+
+  .modal-text {
+    color: var(--ink-1);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-top: 18px;
+  }
+
+  .modal-link {
+    color: var(--amber);
+    text-decoration: underline;
+  }
+
+  .modal-footnote {
+    margin-top: 20px;
+    color: var(--ink-0);
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-align: center;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('about-modal');
+  const openBtn = document.getElementById('about-more-btn');
+  const closeBtn = document.getElementById('about-modal-close');
+
+  openBtn?.addEventListener('click', () => modal?.classList.add('open'));
+  closeBtn?.addEventListener('click', () => modal?.classList.remove('open'));
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('open');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal?.classList.remove('open');
+  });
+</script>

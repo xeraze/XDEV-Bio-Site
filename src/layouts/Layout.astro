@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'xeraze — Fullstack Developer',
+  description = 'xeraze — fullstack developer from Ukraine. C/C++/C#, Rust, Python, TypeScript. Building things and shipping them.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="https://github.com/xeraze.png" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://github.com/xeraze.png" />
+    <meta name="theme-color" content="#0e0e11" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
