@@ -2,12 +2,6 @@ import type { GitHubRepoResponse, GitHubUserResponse, ProjectConfig, RepoData } 
 
 const GITHUB_API = 'https://api.github.com';
 
-/**
- * Fetches repo metadata at BUILD TIME (this runs on the server during
- * `astro build`, not in the browser). This means the data is baked into
- * the static HTML — no client-side loading spinners, no rate-limit
- * surprises for visitors, and it stays fresh every time you rebuild/redeploy.
- */
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchRepo(config: ProjectConfig, attempt = 1): Promise<RepoData | null> {
@@ -16,9 +10,6 @@ export async function fetchRepo(config: ProjectConfig, attempt = 1): Promise<Rep
       headers: { Accept: 'application/vnd.github+json' },
     });
 
-    // GitHub's unauthenticated rate limit occasionally 403s a burst of
-    // parallel requests even when well under the hourly cap. A short
-    // backoff and retry clears this up without needing a token.
     if (res.status === 403 && attempt < 5) {
       await sleep(600 * attempt);
       return fetchRepo(config, attempt + 1);
@@ -49,8 +40,6 @@ export async function fetchRepo(config: ProjectConfig, attempt = 1): Promise<Rep
 }
 
 export async function fetchAllRepos(configs: ProjectConfig[]): Promise<RepoData[]> {
-  // Sequential with a small stagger instead of Promise.all — avoids
-  // firing a burst of simultaneous unauthenticated requests at once.
   const results: (RepoData | null)[] = [];
   for (const config of configs) {
     results.push(await fetchRepo(config));
@@ -71,7 +60,6 @@ export async function fetchUser(username: string): Promise<GitHubUserResponse | 
   }
 }
 
-/** Relative "updated 3 days ago" style formatting, no dependency needed. */
 export function timeAgo(isoDate: string): string {
   const seconds = Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000);
   const units: [number, string][] = [
