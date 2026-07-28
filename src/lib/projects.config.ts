@@ -1,9 +1,12 @@
 import type { ProjectConfig } from '../types';
 
 export const projects: ProjectConfig[] = [
-  { repo: 'xeraze/KBank' },
-  { repo: 'xeraze/tsn-ua', displayName: 'TSN-UA' },
-  { repo: 'xeraze/Pricelist' },
+  { repo: 'xeraze/KBank', displayName: 'KredaBank Site' },
+  { repo: 'xeraze/tsn-ua', displayName: 'TNS Site' },
+  { repo: 'xeraze/Pricelist', displayName: 'Pricelist Site' },
+  { repo: 'xeraze/XDEV-Bio-Site', displayName: 'This Site!' },
+  { repo: 'xeraze/SH-Site', displayName: 'Sloboda Hospital Help Center' },
+  { repo: 'xeraze/XNote', displayName: 'A simple notes app' },
 ];
 
 export const GITHUB_USERNAME = 'xeraze';
