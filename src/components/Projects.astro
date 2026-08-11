@@ -43,12 +43,12 @@ const LANG_COLOR: Record<string, string> = {
             )}
             <span class="repo-stat">★ {repo.stars}</span>
             <span class="repo-stat">⑂ {repo.forks}</span>
-            <span class="repo-updated" title={`last commit ${timeAgo(repo.updatedAt)}`}>
+            <span class="repo-updated" title={`last commit ${timeAgo(repo.lastCommitAt)}`} data-ago={repo.lastCommitAt}>
               <svg class="repo-updated-icon" viewBox="0 0 16 16" aria-hidden="true">
                 <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4" />
                 <path d="M8 4v4l2.6 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
               </svg>
-              committed {timeAgo(repo.updatedAt)}
+              committed <span class="repo-ago">{timeAgo(repo.lastCommitAt)}</span>
             </span>
           </div>
         </a>
@@ -184,3 +184,32 @@ const LANG_COLOR: Record<string, string> = {
     font-size: 0.9rem;
   }
 </style>
+
+<script>
+  function liveAgo(iso: string): string {
+    const seconds = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
+    const units: [number, string][] = [
+      [31536000, 'y'],
+      [2592000, 'mo'],
+      [604800, 'w'],
+      [86400, 'd'],
+      [3600, 'h'],
+      [60, 'min'],
+    ];
+    for (const [secs, label] of units) {
+      const value = Math.floor(seconds / secs);
+      if (value >= 1) return `${value}${label} ago`;
+    }
+    return 'just now';
+  }
+
+  function refreshAgo() {
+    document.querySelectorAll<HTMLElement>('[data-ago]').forEach((el) => {
+      const span = el.querySelector('.repo-ago');
+      if (span && el.dataset.ago) span.textContent = liveAgo(el.dataset.ago);
+    });
+  }
+
+  refreshAgo();
+  setInterval(refreshAgo, 30000);
+</script>

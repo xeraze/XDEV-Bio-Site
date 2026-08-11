@@ -217,9 +217,9 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
     const h = Math.floor((diffMs % 86_400_000) / 3_600_000);
     const m = Math.floor((diffMs % 3_600_000) / 60_000);
 
-    if (d > 0) return `${d}d ${h}h ${m}m elapsed`;
-    if (h > 0) return `${h}h ${m}m elapsed`;
-    return `${m}m elapsed`;
+    if (d > 0) return `${d}d ${h}h ${m}min elapsed`;
+    if (h > 0) return `${h}h ${m}min elapsed`;
+    return `${m}min elapsed`;
   }
 
   async function updateLanyard() {

@@ -22,6 +22,8 @@ export async function fetchRepo(config: ProjectConfig, attempt = 1): Promise<Rep
 
     const data = (await res.json()) as GitHubRepoResponse;
 
+    const lastCommitAt = await fetchLastCommit(config.repo);
+
     return {
       name: data.name,
       displayName: config.displayName ?? data.name,
@@ -31,10 +33,26 @@ export async function fetchRepo(config: ProjectConfig, attempt = 1): Promise<Rep
       stars: data.stargazers_count,
       forks: data.forks_count,
       updatedAt: data.updated_at,
+      lastCommitAt: lastCommitAt ?? data.updated_at,
       topics: data.topics ?? [],
     };
   } catch (err) {
     console.warn(`[github] Error fetching ${config.repo}:`, err);
+    return null;
+  }
+}
+
+async function fetchLastCommit(repo: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${GITHUB_API}/repos/${repo}/commits?per_page=1`, {
+      headers: { Accept: 'application/vnd.github+json' },
+    });
+
+    if (!res.ok) return null;
+
+    const commits = (await res.json()) as { commit?: { committer?: { date?: string } } }[];
+    return commits[0]?.commit?.committer?.date ?? null;
+  } catch {
     return null;
   }
 }

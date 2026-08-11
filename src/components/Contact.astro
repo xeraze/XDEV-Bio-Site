@@ -1,7 +1,7 @@
 ---
 const links = [
   { label: 'Telegram', href: 'https://t.me/xrzeoff', icon: 'telegram' },
-  { label: 'GitHub', href: 'https://github.com/xeraze', icon: 'github' },
+  { label: 'Steam', href: 'https://steamcommunity.com/id/xeraze_/', icon: 'steam' },
   { label: 'Email', href: 'mailto:xeraze.official@gmail.com', icon: 'email' },
 ];
 ---
@@ -138,7 +138,6 @@ const links = [
     try {
       await navigator.clipboard.writeText('xeraze.');
     } catch {
-      // clipboard API can fail in insecure contexts; fail silently, toast still reassures visually
     }
     toast?.classList.add('show');
     setTimeout(() => toast?.classList.remove('show'), 2000);

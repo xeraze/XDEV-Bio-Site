@@ -1,14 +1,9 @@
-/** A single project pinned on the site, backed by a live GitHub repo. */
 export interface ProjectConfig {
-  /** owner/repo, e.g. "xeraze/KBank" */
   repo: string;
-  /** Optional override if you want a nicer display name than the repo name */
   displayName?: string;
-  /** Optional override description (falls back to the repo's GitHub description) */
   description?: string;
 }
 
-/** Normalized repo data after fetching from the GitHub API. */
 export interface RepoData {
   name: string;
   displayName: string;
@@ -18,10 +13,10 @@ export interface RepoData {
   stars: number;
   forks: number;
   updatedAt: string;
+  lastCommitAt: string;
   topics: string[];
 }
 
-/** Raw shape of the fields we use from GitHub's REST API repo response. */
 export interface GitHubRepoResponse {
   name: string;
   html_url: string;
@@ -33,7 +28,6 @@ export interface GitHubRepoResponse {
   topics?: string[];
 }
 
-/** Raw shape of the fields we use from GitHub's REST API user response. */
 export interface GitHubUserResponse {
   login: string;
   avatar_url: string;
@@ -44,7 +38,6 @@ export interface GitHubUserResponse {
   followers: number;
 }
 
-/** Discord activity as returned by Lanyard. */
 export interface LanyardActivity {
   id: string;
   name: string;

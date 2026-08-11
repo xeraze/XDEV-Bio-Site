@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  /* -- color: graphite base to white, monochrome accent -- */
   --bg-0: #0e0e11;
   --bg-1: #131318;
   --bg-2: #1a1a21;
