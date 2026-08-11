@@ -22,8 +22,8 @@ const LANG_COLOR: Record<string, string> = {
     <p class="eyebrow">projects</p>
     <h2 class="section-title">git log --pinned</h2>
     <p class="section-sub">
-      Live from GitHub — stars, language, and last-updated pull straight
-      from the repos, so this list never goes stale.
+      Live from GitHub — stars, language, and last commit time pull
+      straight from the repos, so this list never goes stale.
     </p>
 
     <div class="repo-list">
@@ -43,7 +43,13 @@ const LANG_COLOR: Record<string, string> = {
             )}
             <span class="repo-stat">★ {repo.stars}</span>
             <span class="repo-stat">⑂ {repo.forks}</span>
-            <span class="repo-updated">updated {timeAgo(repo.updatedAt)}</span>
+            <span class="repo-updated" title={`last commit ${timeAgo(repo.updatedAt)}`}>
+              <svg class="repo-updated-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+                <path d="M8 4v4l2.6 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+              committed {timeAgo(repo.updatedAt)}
+            </span>
           </div>
         </a>
       ))}
@@ -162,6 +168,15 @@ const LANG_COLOR: Record<string, string> = {
 
   .repo-updated {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .repo-updated-icon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
   }
 
   .repo-empty {
