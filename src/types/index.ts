@@ -9,16 +9,18 @@ export interface RepoData {
   displayName: string;
   description: string;
   url: string;
+  fullName: string;
   language: string | null;
   stars: number;
   forks: number;
   updatedAt: string;
-  lastCommitAt: string;
+  lastCommitAt: string | null;
   topics: string[];
 }
 
 export interface GitHubRepoResponse {
   name: string;
+  full_name: string;
   html_url: string;
   description: string | null;
   language: string | null;
