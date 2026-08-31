@@ -1,4 +1,13 @@
 ---
+import translations from '../lib/i18n';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = (translations[locale as keyof typeof translations] ?? translations.en).about;
+
 const backend = [
   { name: 'C', icon: 'https://skillicons.dev/icons?i=c' },
   { name: 'C#', icon: 'https://skillicons.dev/icons?i=cs' },
@@ -22,23 +31,19 @@ const frontend = [
 
 <section id="about">
   <div class="container">
-    <p class="eyebrow">about</p>
-    <h2 class="section-title">A bit about me</h2>
+    <p class="eyebrow">{t.eyebrow}</p>
+    <h2 class="section-title">{t.title}</h2>
 
     <p class="about-text">
-      I'm xeraze — a fullstack developer from Ukraine, focused on writing
-      clean, maintainable code and shipping things that actually work.
-      I like spreading myself across languages instead of settling into one
-      comfortable stack, and I plan to continue developing this approach further:
-      more languages, more projects, more solutions.
+      {t.text}
     </p>
 
-    <button class="about-more" id="about-more-btn">read more →</button>
+    <button class="about-more" id="about-more-btn">{t.readMore}</button>
 
     <div class="stack">
       <div class="stack-group">
         <p class="stack-label">
-          <span class="stack-prompt">$</span> ls ./backend
+          <span class="stack-prompt">$</span> {t.backendLabel}
         </p>
         <div class="stack-icons">
           {backend.map((t) => <img src={t.icon} alt={t.name} title={t.name} width="40" height="40" loading="lazy" />)}
@@ -47,7 +52,7 @@ const frontend = [
 
       <div class="stack-group">
         <p class="stack-label">
-          <span class="stack-prompt">$</span> ls ./frontend
+          <span class="stack-prompt">$</span> {t.frontendLabel}
         </p>
         <div class="stack-icons">
           {frontend.map((t) => <img src={t.icon} alt={t.name} title={t.name} width="40" height="40" loading="lazy" />)}
@@ -60,21 +65,14 @@ const frontend = [
 <div class="modal" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
   <div class="modal-card">
     <button class="modal-close" id="about-modal-close" aria-label="Close">&times;</button>
-    <p class="eyebrow" id="about-modal-title">about.md</p>
+    <p class="eyebrow" id="about-modal-title">{t.modalEyebrow}</p>
     <p class="modal-text">
-      xeraze, 16 y.o, a fullstack developer and web designer from
-      Ukraine. My main interests are coding and gaming. I provide
-      high-quality work and stick to deadlines when they're specified.
-      Pricelist:
+      {t.modalText}
       <a href="https://xeraze.github.io/Pricelist/" target="_blank" rel="noopener" class="modal-link">
         xeraze.github.io/Pricelist
       </a>
-      — I usually respond fastest on Discord. If you're sending a work
-      order, please make it well-structured and detailed; without that I
-      can't guarantee the result matches what you had in mind. In most
-      cases I'll start on your project right away.
     </p>
-    <p class="modal-footnote">(If an employer is reading this — I'd love to work with you.)</p>
+    <p class="modal-footnote">{t.modalFootnote}</p>
   </div>
 </div>
 

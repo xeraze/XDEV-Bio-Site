@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Projects from '../../components/Projects.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+
+const locale = 'ru';
+---
+
+<Layout locale={locale}>
+  <Hero locale={locale} />
+  <About locale={locale} />
+  <Projects locale={locale} />
+  <Contact locale={locale} />
+  <Footer locale={locale} />
+</Layout>

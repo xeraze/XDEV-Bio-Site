@@ -1,32 +1,69 @@
 ---
 import '../styles/global.css';
+import translations from '../lib/i18n';
 
 interface Props {
-  title?: string;
-  description?: string;
+  locale?: string;
 }
 
-const {
-  title = 'xeraze',
-  description = "xeraze — fullstack developer from Ukraine. C/C++/C#, Rust, Python, TypeScript and more. Let's build!",
-} = Astro.props;
+const { locale = 'en' } = Astro.props;
+const t = translations[locale as keyof typeof translations] ?? translations.en;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
     <link rel="icon" type="image/png" href="https://github.com/xeraze.png" />
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
     <meta property="og:image" content="https://github.com/xeraze.png" />
     <meta name="theme-color" content="#0e0e11" />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   </head>
   <body>
+    <nav class="lang-switch">
+      <a href="/XDEV-Bio-Site/" class:list={["lang-link", { active: locale === 'en' }]}>EN</a>
+      <a href="/XDEV-Bio-Site/ru/" class:list={["lang-link", { active: locale === 'ru' }]}>RU</a>
+    </nav>
     <slot />
   </body>
 </html>
+
+<style>
+  .lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    gap: 6px;
+    z-index: 50;
+  }
+
+  .lang-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--ink-2);
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .lang-link:hover {
+    color: var(--ink-0);
+    border-color: var(--line-strong);
+  }
+
+  .lang-link.active {
+    color: var(--amber);
+    border-color: var(--amber-dim);
+  }
+</style>

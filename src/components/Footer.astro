@@ -1,0 +1,41 @@
+---
+import translations from '../lib/i18n';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = (translations[locale as keyof typeof translations] ?? translations.en).footer;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer-text">&copy; {year} xeraze. {t.built} <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> · {t.deployed} <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a></p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-text {
+    color: var(--ink-2);
+    font-size: 0.76rem;
+    text-align: center;
+  }
+
+  .footer-text a {
+    color: var(--ink-1);
+    text-decoration: none;
+  }
+
+  .footer-text a:hover {
+    color: var(--amber);
+    text-decoration: underline;
+  }
+</style>
