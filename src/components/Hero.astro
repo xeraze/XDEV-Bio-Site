@@ -136,7 +136,35 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
   .status-detail {
     font-size: 0.8rem;
     color: var(--ink-2);
-    margin: 4px 0 0 19px;
+    margin: 0;
+  }
+
+  .status-activity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .status-activity-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .status-activity-icon--small {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-left: auto;
+  }
+
+  .status-activity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
   .hero-actions {
@@ -222,6 +250,33 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
     return `${m}min elapsed`;
   }
 
+  function discordAssetUrl(key: string | undefined, applicationId: string | undefined): string | null {
+    if (!key) return null;
+    if (key.startsWith('http')) return key;
+    if (key.startsWith('mp:external/')) {
+      return `https://media.discordapp.net/external/${key.replace('mp:external/', '')}`;
+    }
+    if (!applicationId) return null;
+    if (/^\d+$/.test(key)) {
+      return `https://cdn.discordapp.com/app-assets/${applicationId}/${key}.png`;
+    }
+    return `https://cdn.discordapp.com/app-assets/${applicationId}/${key}.png`;
+  }
+
+  const ACTIVITY_TYPE_LABEL: Record<number, string> = {
+    0: 'играет',
+    1: 'стримит',
+    3: 'смотрит',
+  };
+
+  function getActiveActivity(activities: LanyardActivity[]) {
+    const streaming = activities.find((a) => a.type === 1);
+    if (streaming) return streaming;
+    const watching = activities.find((a) => a.type === 3);
+    if (watching) return watching;
+    return activities.find((a) => a.type === 0) ?? null;
+  }
+
   async function updateLanyard() {
     const container = document.getElementById('lanyard-status');
     if (!container) return;
@@ -235,7 +290,7 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
 
       const { discord_status, activities, listening_to_spotify, spotify } = json.data;
 
-      const gameActivity = activities.find((a) => a.type === 0);
+      const activeActivity = getActiveActivity(activities);
 
       let html = `
         <div class="status-row">
@@ -245,12 +300,33 @@ import { DISCORD_USER_ID } from '../lib/projects.config';
       `;
 
       if (listening_to_spotify && spotify) {
-        html += `<p class="status-detail">🎧 ${spotify.song} — ${spotify.artist}</p>`;
-      } else if (gameActivity) {
-        html += `<p class="status-detail">👾 ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
-        if (gameActivity.timestamps?.start) {
-          html += `<p class="status-detail">${formatElapsed(gameActivity.timestamps.start)}</p>`;
-        }
+        html += `
+          <div class="status-activity">
+            <img class="status-activity-icon" src="${spotify.album_art_url}" alt="album art" width="32" height="32" />
+            <div class="status-activity-info">
+              <p class="status-detail">${spotify.song} — ${spotify.artist}</p>
+            </div>
+          </div>`;
+      } else if (activeActivity) {
+        const appId = activeActivity.application_id;
+        const largeImg = discordAssetUrl(activeActivity.assets?.large_image, appId);
+        const smallImg = discordAssetUrl(activeActivity.assets?.small_image, appId);
+        const typeLabel = ACTIVITY_TYPE_LABEL[activeActivity.type] ?? '';
+        const imgHtml = largeImg
+          ? `<img class="status-activity-icon" src="${largeImg}" alt="${activeActivity.assets?.large_text ?? activeActivity.name}" width="32" height="32" />`
+          : '';
+        const smallImgHtml = smallImg
+          ? `<img class="status-activity-icon status-activity-icon--small" src="${smallImg}" alt="${activeActivity.assets?.small_text ?? ''}" width="16" height="16" />`
+          : '';
+        html += `
+          <div class="status-activity">
+            ${imgHtml}
+            <div class="status-activity-info">
+              <p class="status-detail">${typeLabel ? typeLabel + ' — ' : ''}${activeActivity.name}${activeActivity.details ? ` — ${activeActivity.details}` : ''}</p>
+              ${activeActivity.timestamps?.start ? `<p class="status-detail">${formatElapsed(activeActivity.timestamps.start)}</p>` : ''}
+            </div>
+            ${smallImgHtml}
+          </div>`;
       }
 
       container.innerHTML = html;
