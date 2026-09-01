@@ -1,4 +1,4 @@
-export default {
+const translations = {
   en: {
     meta: {
       title: 'xeraze',
@@ -19,8 +19,8 @@ export default {
       backendLabel: '$ ls ./backend',
       frontendLabel: '$ ls ./frontend',
       modalEyebrow: 'about.md',
-      modalText: "xeraze, 16 y.o, a fullstack developer and web designer from Ukraine. My main interests are coding and gaming. I provide high-quality work and stick to deadlines when they're specified. Pricelist: xeraze.github.io/Pricelist — I usually respond fastest on Discord. If you're sending a work order, please make it well-structured and detailed; without that I can't guarantee the result matches what you had in mind. In most cases I'll start on your project right away.",
-      modalFootnote: "(If an employer is reading this — I'd love to work with you.)",
+      modalText: "xeraze, 16 y.o, a fullstack developer from Ukraine. My main interests are coding and gaming. I provide high-quality work and stick to deadlines when they're specified. Pricelist: xeraze.github.io/Pricelist — I usually respond fastest on Discord. If you're sending a work order, please make it well-structured and detailed; without that I can't guarantee the result matches what you had in mind. In most cases I'll start on your project right away.",
+      modalFootnote: "(If an employer is reading this — I'd like to work with you.)",
     },
     projects: {
       eyebrow: 'projects',
@@ -49,7 +49,7 @@ export default {
   ru: {
     meta: {
       title: 'xeraze',
-      description: 'xeraze — поллстек разработчик из Украины. C/C++/C#, Rust, Python, TypeScript и многое другое. Давай строить!',
+      description: 'xeraze — фуллстек разработчик из Украины. C/C++/C#, Rust, Python, TypeScript и многое другое. Давайте строить!',
     },
     hero: {
       eyebrow: 'кто я',
@@ -61,27 +61,27 @@ export default {
     about: {
       eyebrow: 'обо мне',
       title: 'Немного обо мне',
-      text: 'Я xeraze — поллстек разработчик из Украины, специализируюсь на чистом, поддерживаемом коде и реально работающих решениях. Мне нравится пробовать разные языки вместо того, чтобы оставаться на одном удобном стеке, и я планирую продолжать этот подход: больше языков, больше проектов, больше решений.',
+      text: 'Я xeraze — фуллстек разработчик из Украины, специализируюсь на чистом, поддерживаемом коде и работающих решениях. Мне нравится пробовать разные языки вместо того, чтобы оставаться на одном удобном стеке, и я планирую продолжать этот подход: больше языков, больше проектов, больше решений.',
       readMore: 'читать далее →',
       backendLabel: '$ ls ./backend',
       frontendLabel: '$ ls ./frontend',
       modalEyebrow: 'обо_мне.md',
-      modalText: 'xeraze, 16 лет, поллстек разработчик и веб-дизайнер из Украины. Мои основные интересы — кодинг и гейминг. Я предоставляю качественную работу и придерживаюсь дедлайнов, если они указаны. Прайслист: xeraze.github.io/Pricelist — обычно я отвечаю быстрее всего в Discord. Если вы отправляете заказ, пожалуйста, сделайте его структурированным и подробным; без этого я не могу гарантировать, что результат совпадёт с вашим представлением. В большинстве случаев я начну работу над вашим проектом сразу.',
-      modalFootnote: '(Если это читает работодатель — я бы с радостью поработал с вами.)',
+      modalText: 'xeraze, 16 лет, фуллстек разработчик из Украины. Мои основные интересы — коддинг и гейминг. Я предоставляю качественную работу и придерживаюсь дедлайнов, если они указаны. Прайслист: xeraze.github.io/Pricelist — обычно я отвечаю быстрее всего в Discord. Если вы оформляете заказ, пожалуйста, сделайте его структурированным и подробным; без этого я не могу гарантировать, что результат будет соответствовать вашим ожиданиям. В большинстве случаев я начну работу над вашим проектом сразу.',
+      modalFootnote: '(Если это читает какой-то работодатель — я бы с радостью поработал с вами.)',
     },
     projects: {
       eyebrow: 'проекты',
       title: 'git log --pinned',
-      subtitle: 'Прямо с GitHub — звёзды, язык и время последнего коммита тянутся прямо из репозиториев, поэтому список всегда актуален.',
+      subtitle: 'Это информация прямо с GitHub! Звёзды, язык и время последнего коммита тянутся прямо из репозиториев, поэтому список всегда актуален.',
       committed: 'последний коммит',
       empty: 'Не удалось загрузить проекты — попробуйте позже.',
     },
     contact: {
       eyebrow: 'контакты',
-      title: 'Давай поговорим',
+      title: 'Давайте поговорим',
       subtitle: 'Быстрее всего отвечаю в Discord. Остальное тоже работает.',
       discord: 'Discord — xeraze.',
-      pricelist: 'смотреть прайслист →',
+      pricelist: 'смотреть прайслист >',
       copied: '"xeraze." скопирован в буфер обмена',
     },
     footer: {
@@ -95,5 +95,6 @@ export default {
   },
 } as const;
 
+export default translations;
 export type Locale = keyof typeof translations;
 export type TranslationKey = typeof translations.en;
