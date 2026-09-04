@@ -31,10 +31,10 @@ const links = [
         </a>
       ))}
 
-      <button class="contact-link contact-link--btn" id="copy-discord">
+      <a class="contact-link" href="https://discord.com/users/1404735389603860503" target="_blank" rel="noopener">
         <span class="contact-label">{t.discord}</span>
-        <span class="contact-arrow" id="copy-icon">⧉</span>
-      </button>
+        <span class="contact-arrow">↗</span>
+      </a>
     </div>
 
     <a href="https://xeraze.github.io/Pricelist/" target="_blank" rel="noopener" class="pricelist-cta">
@@ -42,8 +42,6 @@ const links = [
     </a>
   </div>
 </section>
-
-<div class="toast" id="toast">{t.copied}</div>
 
 <style>
   .section-title {
@@ -106,41 +104,5 @@ const links = [
   .pricelist-cta:hover {
     text-decoration: underline;
   }
-
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--bg-2);
-    border: 1px solid var(--line-strong);
-    color: var(--ink-0);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    padding: 12px 20px;
-    border-radius: var(--radius-sm);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-    z-index: 200;
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
 </style>
 
-<script>
-  const btn = document.getElementById('copy-discord');
-  const toast = document.getElementById('toast');
-
-  btn?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText('xeraze.');
-    } catch {
-    }
-    toast?.classList.add('show');
-    setTimeout(() => toast?.classList.remove('show'), 2000);
-  });
-</script>

@@ -33,9 +33,8 @@ const translations = {
       eyebrow: 'contact',
       title: "Let's talk",
       subtitle: 'Fastest response is on Discord. Everything else works too.',
-      discord: 'Discord — xeraze.',
+      discord: 'Discord',
       pricelist: 'view pricelist →',
-      copied: 'Copied "xeraze." to clipboard',
     },
     footer: {
       built: 'built with',
@@ -80,9 +79,8 @@ const translations = {
       eyebrow: 'контакты',
       title: 'Давайте поговорим',
       subtitle: 'Быстрее всего отвечаю в Discord. Остальное тоже работает.',
-      discord: 'Discord — xeraze.',
+      discord: 'Discord',
       pricelist: 'смотреть прайслист >',
-      copied: '"xeraze." скопирован в буфер обмена',
     },
     footer: {
       built: 'сделано на',
