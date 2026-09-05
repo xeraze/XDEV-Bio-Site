@@ -149,6 +149,12 @@ const t = (translations[locale as keyof typeof translations] ?? translations.en)
     gap: 5px;
   }
 
+  .status-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
   .hero-actions {
     display: flex;
     gap: 12px;
@@ -246,13 +252,13 @@ const t = (translations[locale as keyof typeof translations] ?? translations.en)
       `;
 
       if (listening_to_spotify && spotify) {
-        html += `<p class="status-detail"><iconify-icon icon="ep:headset" width="15" height="15"></iconify-icon> ${spotify.song} — ${spotify.artist}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/headset.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${spotify.song} — ${spotify.artist}</p>`;
       } else if (streamActivity) {
-        html += `<p class="status-detail"><iconify-icon icon="ep:video-camera" width="15" height="15"></iconify-icon> ${streamActivity.name}${streamActivity.details ? ` — ${streamActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-camera.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${streamActivity.name}${streamActivity.details ? ` — ${streamActivity.details}` : ''}</p>`;
       } else if (watchActivity) {
-        html += `<p class="status-detail"><iconify-icon icon="ep:monitor" width="15" height="15"></iconify-icon> ${watchActivity.name}${watchActivity.details ? ` — ${watchActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/monitor.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${watchActivity.name}${watchActivity.details ? ` — ${watchActivity.details}` : ''}</p>`;
       } else if (gameActivity) {
-        html += `<p class="status-detail"><iconify-icon icon="ep:video-play" width="15" height="15"></iconify-icon> ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-play.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
       }
 
       container.innerHTML = html;
