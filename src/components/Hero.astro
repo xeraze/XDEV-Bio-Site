@@ -150,8 +150,8 @@ const t = (translations[locale as keyof typeof translations] ?? translations.en)
   }
 
   .status-icon {
-    width: 1em;
-    height: 1em;
+    width: 22px;
+    height: 22px;
     flex-shrink: 0;
   }
 
@@ -252,13 +252,13 @@ const t = (translations[locale as keyof typeof translations] ?? translations.en)
       `;
 
       if (listening_to_spotify && spotify) {
-        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/headset.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${spotify.song} — ${spotify.artist}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/headset.svg?width=22&height=22&color=%237d7f8c" alt="" /> ${spotify.song} — ${spotify.artist}</p>`;
       } else if (streamActivity) {
-        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-camera.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${streamActivity.name}${streamActivity.details ? ` — ${streamActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-camera.svg?width=22&height=22&color=%237d7f8c" alt="" /> ${streamActivity.name}${streamActivity.details ? ` — ${streamActivity.details}` : ''}</p>`;
       } else if (watchActivity) {
-        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/monitor.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${watchActivity.name}${watchActivity.details ? ` — ${watchActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/monitor.svg?width=22&height=22&color=%237d7f8c" alt="" /> ${watchActivity.name}${watchActivity.details ? ` — ${watchActivity.details}` : ''}</p>`;
       } else if (gameActivity) {
-        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-play.svg?width=15&height=15&color=%237d7f8c" alt="" /> ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
+        html += `<p class="status-detail"><img class="status-icon" src="https://api.iconify.design/ep/video-play.svg?width=22&height=22&color=%237d7f8c" alt="" /> ${gameActivity.name}${gameActivity.details ? ` — ${gameActivity.details}` : ''}</p>`;
       }
 
       container.innerHTML = html;
