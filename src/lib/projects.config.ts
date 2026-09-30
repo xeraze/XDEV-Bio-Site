@@ -10,4 +10,4 @@ export const projects: ProjectConfig[] = [
 ];
 
 export const GITHUB_USERNAME = 'xeraze';
-export const DISCORD_USER_ID = '1404735389603860503';
+export const DISCORD_USER_ID = '1554543801220071605';
